@@ -16,7 +16,17 @@ set(PROJECT_SOURCES
 set(PROJECT_HEADERS
     ${PROJECT_INCLUDE_DIR}/logger.hpp
     ${PROJECT_INCLUDE_DIR}/json.h
-    ${PROJECT_INCLUDE_DIR}/json_features.h)
+    ${PROJECT_INCLUDE_DIR}/json_features.h
+    ${PROJECT_INCLUDE_DIR}/json/json.h
+    ${PROJECT_INCLUDE_DIR}/json/allocator.h
+    ${PROJECT_INCLUDE_DIR}/json/assertions.h
+    ${PROJECT_INCLUDE_DIR}/json/config.h
+    ${PROJECT_INCLUDE_DIR}/json/forwards.h
+    ${PROJECT_INCLUDE_DIR}/json/json_features.h
+    ${PROJECT_INCLUDE_DIR}/json/reader.h
+    ${PROJECT_INCLUDE_DIR}/json/value.h
+    ${PROJECT_INCLUDE_DIR}/json/version.h
+    ${PROJECT_INCLUDE_DIR}/json/writer.h)
 
     include_directories(${PROJECT_INCLUDE_DIR})
 
