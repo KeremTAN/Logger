@@ -1,6 +1,6 @@
 #include <iostream>
 #include "logger.hpp"
-#include "json/json.h"
+#include "json.h"
 
 
 int main(int argc, char** argv){

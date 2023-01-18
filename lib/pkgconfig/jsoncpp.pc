@@ -1,9 +1,0 @@
-prefix=/opt/homebrew/Cellar/jsoncpp/1.9.5
-includedir=${prefix}/include
-libdir=${prefix}/lib
-
-Name: jsoncpp
-Description: A C++ library for interacting with JSON
-Version: 1.9.4
-Libs: -L${libdir} -ljsoncpp
-Cflags: -I${includedir}

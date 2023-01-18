@@ -9,7 +9,7 @@
             "name": "(lldb) Başlat",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/Logger",
+            "program": "${workspaceFolder}/build/LOGGER",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
