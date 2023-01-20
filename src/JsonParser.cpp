@@ -1,7 +1,7 @@
 #include "JsonParser.hpp"
 #include <unistd.h>
 
-#define passCondition   m_sourceText[i]=='{' || m_sourceText[i]=='\"' || m_sourceText[i]==9 || m_sourceText[i]==32 || m_sourceText[i]==':'
+#define passCondition   m_sourceText[i]=='{' || m_sourceText[i]=='\"' || m_sourceText[i]==9 || m_sourceText[i]==32 || m_sourceText[i]==':' || m_sourceText[i]==','
 #define inValidConditon m_sourceText[i]!='\"' && m_sourceText[i]!='}' && m_sourceText[i] !=',' && m_sourceText[i] !=EOF
 
 JsonParser::JsonParser(const std::string& jsonFileName){
@@ -27,17 +27,18 @@ void JsonParser::parse(){
                 keyToken+=m_sourceText[i++];
             }
             isKey = 0;
-            std::cout<<keyToken<<" ";
+         
         }
         else{
             while(inValidConditon){
                 valueToken+=m_sourceText[i++];
             }
-            std::cout<<valueToken<<"\n";
+            m_JsonObjects.insert({keyToken, valueToken});
             keyToken="";
             valueToken="";
             isKey = 1;
         }
+         
     }
 }
 
@@ -48,4 +49,8 @@ std::string JsonParser::getPath(){
     }
     std::string path(buffer);
     return path;
+}
+
+std::unordered_map<std::string, std::string> JsonParser::items(){
+    return m_JsonObjects;
 }

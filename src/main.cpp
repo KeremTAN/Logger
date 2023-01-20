@@ -8,16 +8,14 @@
 
 using json = nlohmann::json;
 int main(int argc, char** argv){
+//std::ifstream f("/path/config.json");
+//json data = json::parse(f);
+JsonParser json("/config.json");
+json.parse();
 
-std::ifstream f("/path/config.json");
-json data = json::parse(f);
+for (auto& it : json.items()) 
+  std::cout << it.first << " : " << it.second << "\n";
 
-for (auto& it : data.items()) 
-  std::cout << it.key() << " : " << it.value() << "\n";
-/*
-    JsonParser json("/config.json");
-    json.parse();
-*/
 
     std::cin.get();
 }
