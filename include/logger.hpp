@@ -1,5 +1,5 @@
-#ifndef logger_hpp
-#define logger_hpp
+#ifndef LOGGER_HPP
+#define LOGGER_HPP
 #include <iostream>
 #include <fstream>
 #include <ctime>
@@ -8,7 +8,7 @@ class Logger{
 public:
     Logger(const std::string& fileName, const int& maxFile, const int& frequency);
     ~Logger();
-    void log(std::string& message);
+    void log(const std::string& message);
 
 
 private:
@@ -17,5 +17,4 @@ private:
     int frequency;
     std::ofstream logFile;
 };
-
 #endif

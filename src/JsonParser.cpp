@@ -1,11 +1,11 @@
 #include "JsonParser.hpp"
 #include <unistd.h>
-
+#include "currentPath.hpp"
 #define passCondition   m_sourceText[i]=='{' || m_sourceText[i]=='\"' || m_sourceText[i]==9 || m_sourceText[i]==32 || m_sourceText[i]==':' || m_sourceText[i]==','
 #define inValidConditon m_sourceText[i]!='\"' && m_sourceText[i]!='}' && m_sourceText[i] !=',' && m_sourceText[i] !=EOF
 
 JsonParser::JsonParser(const std::string& jsonFileName){
-    std::ifstream configFile(getPath()+jsonFileName, std::ios::in);
+    std::ifstream configFile(CurrentPath::getPath()+jsonFileName, std::ios::in);
     std::string tmp;
     while (getline(configFile, tmp)) {
         m_sourceText+=tmp;
@@ -26,8 +26,7 @@ void JsonParser::parse(){
             while(inValidConditon){
                 keyToken+=m_sourceText[i++];
             }
-            isKey = 0;
-         
+            isKey = 0; 
         }
         else{
             while(inValidConditon){
@@ -37,20 +36,10 @@ void JsonParser::parse(){
             keyToken="";
             valueToken="";
             isKey = 1;
-        }
-         
+        }       
     }
 }
 
-std::string JsonParser::getPath(){
-    char buffer[PATH_MAX];
-    if (getcwd(buffer, sizeof(buffer)) == NULL) {
-       perror("getcwd() error");
-    }
-    std::string path(buffer);
-    return path;
-}
-
-std::unordered_map<std::string, std::string> JsonParser::items(){
+std::unordered_map<std::string, std::string>& JsonParser::items(){
     return m_JsonObjects;
 }

@@ -12,13 +12,14 @@ set (PROJECT_SOURCE_DIR ${PROJECT_DIR}/src)
 
 set(PROJECT_SOURCES
     ${PROJECT_SOURCE_DIR}/main.cpp
-    ${PROJECT_SOURCE_DIR}/logger.cpp
+    ${PROJECT_SOURCE_DIR}/Logger.cpp
     ${PROJECT_SOURCE_DIR}/JsonParser.cpp)
 
 set(PROJECT_HEADERS
-    ${PROJECT_INCLUDE_DIR}/logger.hpp
-    ${PROJECT_INCLUDE_DIR}/json.hpp
+    ${PROJECT_INCLUDE_DIR}/Logger.hpp
     ${PROJECT_INCLUDE_DIR}/JsonParser.hpp
+    ${PROJECT_INCLUDE_DIR}/currentPath.hpp
+    ${PROJECT_INCLUDE_DIR}/json.hpp
     ${PROJECT_INCLUDE_DIR}/nlohmann/*.hpp)
 
     include_directories(${PROJECT_INCLUDE_DIR})
