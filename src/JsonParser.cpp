@@ -12,7 +12,10 @@ JsonParser::JsonParser(const std::string& jsonFileName){
     }
     configFile.close();
 }
-JsonParser::~JsonParser(){}
+JsonParser::~JsonParser(){
+    m_sourceText.clear();
+    m_JsonObjects.clear();
+}
 
 void JsonParser::parse(){
     std::string keyToken, valueToken;
