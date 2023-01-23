@@ -19,7 +19,7 @@ int main(int argc, char** argv){
   std::string logLevel = json.items()["logLevel"];
   
   Logger logger(logFileName, maxLogFiles, logFrequency); 
-  logger.log("hiii");
-  
+  logger.Warn("boşuna kastın");
+
   std::cin.get();
 }

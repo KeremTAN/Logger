@@ -16,6 +16,7 @@
 #include <ctime>
 #include <dirent.h>
 #include "CurrentPath.hpp"
+#include "Colors.h"
 
 enum class LogType
 {
@@ -26,17 +27,20 @@ class Logger{
 public:
     Logger(const std::string& fileName, const int& maxFile, const int& frequency);
     ~Logger();
-    std::string getUTCDate();
-    int getCountOfLogs();
-    void log(const std::string& message);
-    static void setLogType(const LogType& logType);
+    template<typename... Args>
+    void Warn(const char* message, Args... args){
+        log("WARN", message);
+        LOG_YELLOW("[WARN] : ", message);
+    }
 
 private:
     std::string     m_logFileName;
     int             m_maxFile;
     int             m_frequency;
     std::ofstream   m_logFile;
-    static LogType  m_logType;
     CurrentPath*    m_curr;
+    std::string getUTCDate();
+    int getCountOfLogs();
+    void log(const char* logType, const char* message);
 };
 #endif

@@ -1,5 +1,5 @@
 #include "Logger.hpp"
-#include "Colors.h"
+
 
 
 Logger::Logger(const std::string& fileName, const int& maxFile, const int& frequency)
@@ -40,16 +40,15 @@ int Logger::getCountOfLogs(){
     return file_count;
 }
 
-void Logger::log(const std::string& message){
+void Logger::log(const char* logType, const char* message){
         std::string filePath= "logs/"+getUTCDate()+".log"; 
         m_logFile.open(filePath, std::ios::app); 
-
         // Write the log message to file 
         m_logFile << "[" << getUTCDate() << "] " << message << std::endl;
 
         // Close the log file
         m_logFile.close();
-        LOG_RED("[Debug] : ", message.c_str());
+       
         // Check if the number of log files exceeds the max limit
         // and delete the oldest log file
        // std::cout <<m_logType<<'\n';
@@ -58,7 +57,4 @@ void Logger::log(const std::string& message){
         }
 }
 
-LogType Logger::m_logType=LogType::Warn;
-void Logger::setLogType(const LogType& logType){
-        m_logType=logType;
-}
+
