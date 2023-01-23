@@ -4,7 +4,7 @@ Logger::Logger(const std::string& fileName, const int& maxFile, const int& frequ
         :logFileName(fileName), maxFile(maxFile), frequency(frequency) {}
 Logger::~Logger() {}
 
-void Logger::log(const std::string& message){
+std::string Logger::getUTCDate(){
         time_t now = time(0);
         struct tm tstruct;
         tstruct = *gmtime(&now);
@@ -13,13 +13,15 @@ void Logger::log(const std::string& message){
         strftime(buf, sizeof(buf), "%Y-%m-%d_%X", &tstruct);
 
         std::string date=buf;
-        std::string filePathAndName = "logs/"+date+".log"; 
-   
+        return date;
+}
 
-        logFile.open(filePathAndName, std::ios::app); 
+void Logger::log(const std::string& message){
+        std::string filePath= "logs/"+getUTCDate()+".log"; 
+        logFile.open(filePath, std::ios::app); 
 
-        // Write the log message to file
-        logFile << "[" << buf << "] " << message << std::endl;
+        // Write the log message to file 
+        logFile << "[" << getUTCDate() << "] " << message << std::endl;
 
         // Close the log file
         logFile.close();

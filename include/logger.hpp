@@ -8,8 +8,8 @@ class Logger{
 public:
     Logger(const std::string& fileName, const int& maxFile, const int& frequency);
     ~Logger();
+    std::string getUTCDate();
     void log(const std::string& message);
-
 
 private:
     std::string logFileName;
