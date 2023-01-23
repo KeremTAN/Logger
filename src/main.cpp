@@ -18,7 +18,7 @@ int main(int argc, char** argv){
   int logFrequency = stoi(json.items()["logFrequency"]);
   std::string logLevel = json.items()["logLevel"];
   
-  Logger logger(logFileName, maxLogFiles, logFrequency); 
+  Logger logger(maxLogFiles, logFrequency); 
   logger.Warn("This is a Warn");
   logger.Error("This is an Error");
   logger.Info("This is an Info");

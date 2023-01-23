@@ -25,39 +25,44 @@ enum class LogType
 
 class Logger{
 public:
-    Logger(const std::string& fileName, const int& maxFile, const int& frequency);
+    Logger(const int& maxFile, const int& frequency, const bool& printConsole = 1);
     ~Logger();
 
     template<typename... Args>
     void Warn(const char* message, Args... args){
         log("Warn", message);
-        LOG_YELLOW("[Warn]", message);
+        if(m_printConsole)
+            LOG_YELLOW("[Warn]", message);
     }
 
     template<typename... Args>
     void Error(const char* message, Args... args){
         log("Error", message);
-        LOG_RED("[Error]", message);
+        if(m_printConsole)
+            LOG_RED("[Error]", message);
     }
     
     template<typename... Args>
     void Info(const char* message, Args... args){
         log("Info", message);
-        LOG_GREEN("[Info]", message);
+        if(m_printConsole)
+            LOG_GREEN("[Info]", message);
     }
 
     template<typename... Args>
     void Debug(const char* message, Args... args){
         log("Debug", message);
-        LOG_CYAN("[Debug]", message);
+        if(m_printConsole)
+            LOG_CYAN("[Debug]", message);
     }
 
 private:
-    std::string     m_logFileName;
     int             m_maxFile;
     int             m_frequency;
+    bool            m_printConsole;
     std::ofstream   m_logFile;
     CurrentPath*    m_curr;
+    
     std::string getUTCDate();
     int getCountOfLogs();
     void log(const char* logType, const char* message);

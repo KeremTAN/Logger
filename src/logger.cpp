@@ -2,8 +2,8 @@
 
 
 
-Logger::Logger(const std::string& fileName, const int& maxFile, const int& frequency)
-        :m_logFileName(fileName), m_maxFile(maxFile), m_frequency(frequency) {
+Logger::Logger(const int& maxFile, const int& frequency, const bool& printConsole)
+        :m_maxFile(maxFile), m_frequency(frequency), m_printConsole(printConsole){
                 m_curr=CurrentPath::getInstance();
         }
 
