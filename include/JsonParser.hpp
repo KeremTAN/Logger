@@ -15,6 +15,7 @@
 #include <string>
 #include <fstream>
 #include <unordered_map>
+#include "CurrentPath.hpp"
 
 
 class JsonParser{
@@ -27,5 +28,6 @@ public:
 private:
     std::string                                     m_sourceText;
     std::unordered_map<std::string, std::string>    m_JsonObjects;
+    CurrentPath*                                    m_curr;
 };
 #endif

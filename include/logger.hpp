@@ -4,6 +4,7 @@
 #include <fstream>
 #include <ctime>
 #include <dirent.h>
+#include "CurrentPath.hpp"
 
 class Logger{
 public:
@@ -18,5 +19,6 @@ private:
     int maxFile;
     int frequency;
     std::ofstream logFile;
+    CurrentPath* m_curr;
 };
 #endif

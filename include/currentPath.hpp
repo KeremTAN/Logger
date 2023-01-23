@@ -6,15 +6,14 @@
 #include<string>
 #include <unistd.h>
 
-std::string path;
-namespace CurrentPath{
-    std::string& getPath(){
-        char buffer[PATH_MAX];
-        if (getcwd(buffer, sizeof(buffer)) == NULL) {
-            perror("getcwd() error");
-        }
-        path=buffer;
-        return path;
-    }
-}
+
+class CurrentPath{
+public:
+    static CurrentPath* getInstance();
+    std::string& getPath();
+private:
+    CurrentPath();
+    static CurrentPath* m_Instance;
+    std::string path;
+};
 #endif

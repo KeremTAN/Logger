@@ -1,11 +1,12 @@
 #include "JsonParser.hpp"
 #include <unistd.h>
-#include "currentPath.hpp"
+
 #define passCondition   m_sourceText[i]=='{' || m_sourceText[i]=='\"' || m_sourceText[i]==9 || m_sourceText[i]==32 || m_sourceText[i]==':' || m_sourceText[i]==','
 #define inValidConditon m_sourceText[i]!='\"' && m_sourceText[i]!='}' && m_sourceText[i] !=',' && m_sourceText[i] !=EOF
 
 JsonParser::JsonParser(const std::string& jsonFileName){
-    std::ifstream configFile(CurrentPath::getPath()+jsonFileName, std::ios::in);
+    m_curr= CurrentPath::getInstance();
+    std::ifstream configFile(m_curr->getPath()+jsonFileName, std::ios::in);
     std::string tmp;
     while (getline(configFile, tmp)) {
         m_sourceText+=tmp;

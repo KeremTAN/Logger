@@ -1,7 +1,11 @@
 #include "Logger.hpp"
 
+
 Logger::Logger(const std::string& fileName, const int& maxFile, const int& frequency)
-        :logFileName(fileName), maxFile(maxFile), frequency(frequency) {}
+        :logFileName(fileName), maxFile(maxFile), frequency(frequency) {
+                m_curr=CurrentPath::getInstance();
+        }
+
 Logger::~Logger() {}
 
 std::string Logger::getUTCDate(){
@@ -11,18 +15,17 @@ std::string Logger::getUTCDate(){
 
         char buf[80];
         strftime(buf, sizeof(buf), "%Y-%m-%d_%X", &tstruct);
-
-        std::string date=buf;
-        return date;
+        return buf;
 }
 
 int Logger::getCountOfLogs(){
         DIR *dir;
         struct dirent *ent;
         int file_count = 0;
-        if ((dir = opendir ("/path/to/folder")) != NULL) {
+        std::string path = m_curr->getPath()+"/logs/";
+        if ((dir = opendir (path.c_str())) != NULL) {
                 while ((ent = readdir (dir)) != NULL) {
-                        if (ent->d_type == DT_REG) { // d_type == DT_REG is a regular file
+                        if (ent->d_type == DT_REG) {
                                 file_count++;
                         }
                 }
@@ -32,6 +35,7 @@ int Logger::getCountOfLogs(){
                 perror ("");
                 return EXIT_FAILURE;
         }
+ 
     return file_count;
 }
 
@@ -48,6 +52,6 @@ void Logger::log(const std::string& message){
         // Check if the number of log files exceeds the max limit
         // and delete the oldest log file
         if (maxFile > 0) {
-            // Code to check the number of log files and delete the oldest one
+            std::cout<<getCountOfLogs();
         }
 }
