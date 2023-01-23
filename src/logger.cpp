@@ -16,6 +16,25 @@ std::string Logger::getUTCDate(){
         return date;
 }
 
+int Logger::getCountOfLogs(){
+        DIR *dir;
+        struct dirent *ent;
+        int file_count = 0;
+        if ((dir = opendir ("/path/to/folder")) != NULL) {
+                while ((ent = readdir (dir)) != NULL) {
+                        if (ent->d_type == DT_REG) { // d_type == DT_REG is a regular file
+                                file_count++;
+                        }
+                }
+                closedir (dir);
+        } 
+        else {
+                perror ("");
+                return EXIT_FAILURE;
+        }
+    return file_count;
+}
+
 void Logger::log(const std::string& message){
         std::string filePath= "logs/"+getUTCDate()+".log"; 
         logFile.open(filePath, std::ios::app); 
