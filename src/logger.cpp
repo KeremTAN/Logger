@@ -1,18 +1,22 @@
 #include "Logger.hpp"
-#include "fstream"
 
 Logger::Logger(const std::string& fileName, const int& maxFile, const int& frequency)
         :logFileName(fileName), maxFile(maxFile), frequency(frequency) {}
 Logger::~Logger() {}
 
 void Logger::log(const std::string& message){
-        logFile.open(logFileName, std::ios::app);
-        // Get current time
         time_t now = time(0);
         struct tm tstruct;
+        tstruct = *gmtime(&now);
+
         char buf[80];
-        tstruct = *localtime(&now);
-        strftime(buf, sizeof(buf), "%Y-%m-%d %X", &tstruct);
+        strftime(buf, sizeof(buf), "%Y-%m-%d_%X", &tstruct);
+
+        std::string date=buf;
+        std::string filePathAndName = "logs/"+date+".log"; 
+   
+
+        logFile.open(filePathAndName, std::ios::app); 
 
         // Write the log message to file
         logFile << "[" << buf << "] " << message << std::endl;

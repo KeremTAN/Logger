@@ -12,7 +12,6 @@ int main(int argc, char** argv){
   JsonParser json("/configs/config.json");
   json.parse();
 
-  std::cout<<"Red Text";
   std::string logFileName = json.items()["logFileName"];
   int maxLogFiles = stoi(json.items()["maxLogFiles"]);
   int logFrequency = stoi(json.items()["logFrequency"]);
