@@ -27,10 +27,29 @@ class Logger{
 public:
     Logger(const std::string& fileName, const int& maxFile, const int& frequency);
     ~Logger();
+
     template<typename... Args>
     void Warn(const char* message, Args... args){
-        log("WARN", message);
-        LOG_YELLOW("[WARN] : ", message);
+        log("Warn", message);
+        LOG_YELLOW("[Warn]", message);
+    }
+
+    template<typename... Args>
+    void Error(const char* message, Args... args){
+        log("Error", message);
+        LOG_RED("[Error]", message);
+    }
+    
+    template<typename... Args>
+    void Info(const char* message, Args... args){
+        log("Info", message);
+        LOG_GREEN("[Info]", message);
+    }
+
+    template<typename... Args>
+    void Debug(const char* message, Args... args){
+        log("Debug", message);
+        LOG_CYAN("[Debug]", message);
     }
 
 private:

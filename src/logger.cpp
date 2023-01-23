@@ -53,7 +53,7 @@ void Logger::log(const char* logType, const char* message){
         // and delete the oldest log file
        // std::cout <<m_logType<<'\n';
         if (m_maxFile > 0) {
-            std::cout<<getCountOfLogs();
+      
         }
 }
 
