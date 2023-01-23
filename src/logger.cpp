@@ -2,7 +2,7 @@
 
 
 Logger::Logger(const std::string& fileName, const int& maxFile, const int& frequency)
-        :logFileName(fileName), maxFile(maxFile), frequency(frequency) {
+        :m_logFileName(fileName), m_maxFile(maxFile), m_frequency(frequency) {
                 m_curr=CurrentPath::getInstance();
         }
 
@@ -41,17 +41,23 @@ int Logger::getCountOfLogs(){
 
 void Logger::log(const std::string& message){
         std::string filePath= "logs/"+getUTCDate()+".log"; 
-        logFile.open(filePath, std::ios::app); 
+        m_logFile.open(filePath, std::ios::app); 
 
         // Write the log message to file 
-        logFile << "[" << getUTCDate() << "] " << message << std::endl;
+        m_logFile << "[" << getUTCDate() << "] " << message << std::endl;
 
         // Close the log file
-        logFile.close();
+        m_logFile.close();
 
         // Check if the number of log files exceeds the max limit
         // and delete the oldest log file
-        if (maxFile > 0) {
+       // std::cout <<m_logType<<'\n';
+        if (m_maxFile > 0) {
             std::cout<<getCountOfLogs();
         }
+}
+
+LogType Logger::m_logType=LogType::Warn;
+void Logger::setLogType(const LogType& logType){
+        m_logType=logType;
 }
