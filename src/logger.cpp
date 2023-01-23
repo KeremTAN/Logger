@@ -1,7 +1,7 @@
 #include "Logger.hpp"
 
-Logger::Logger(const int& maxFile, const LogFrequency& frequency, const bool& printConsole)
-        :m_maxFile(maxFile), m_frequency(frequency), m_printConsole(printConsole){
+Logger::Logger(const int& maxFile, const LogFrequency& frequency, const LogLevel& level, const bool& printConsole)
+        :m_maxFile(maxFile), m_frequency(frequency), m_level(level), m_printConsole(printConsole){
                 m_curr=CurrentPath::getInstance();
         }
 

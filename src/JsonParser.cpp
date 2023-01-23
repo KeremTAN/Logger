@@ -34,7 +34,7 @@ void JsonParser::parse(){
         }
         else{
             while(inValidConditon){
-                valueToken+=m_sourceText[i++];
+                valueToken+= std::tolower(m_sourceText[i++]);
             }
             m_JsonObjects.insert({keyToken, valueToken});
             keyToken="";
@@ -48,20 +48,43 @@ std::unordered_map<std::string, std::string>& JsonParser::items(){
     return m_JsonObjects;
 }
 
+int JsonParser::getMaxLogFiles(){
+    if(m_JsonObjects.size()!=0)
+        return std::stoi(m_JsonObjects["maxLogFiles"]);
+    return 1;
+}
+
 LogFrequency JsonParser::getLogFrequency(){
   LogFrequency frequency;
   if(m_JsonObjects.size()!=0){
-    if(m_JsonObjects["logFrequency"]=="Second")
-        frequency=LogFrequency::Second;
+        if(m_JsonObjects["logFrequency"]=="second")
+            frequency=LogFrequency::Second;
 
-    else if (m_JsonObjects["logFrequency"]=="Minute")
-        frequency=LogFrequency::Minute;
+        else if (m_JsonObjects["logFrequency"]=="minute")
+            frequency=LogFrequency::Minute;
 
-    else if (m_JsonObjects["logFrequency"]=="Hourly")
-        frequency=LogFrequency::Hourly;
+        else if (m_JsonObjects["logFrequency"]=="hourly")
+            frequency=LogFrequency::Hourly;
 
-    else frequency=LogFrequency::Daily;
+        else frequency=LogFrequency::Daily;
     }
 
     return frequency;
+}
+
+LogLevel JsonParser::getLogLevel(){
+    LogLevel level;
+    if(m_JsonObjects.size()!=0){
+        if(m_JsonObjects["logLevel"]=="debug")
+            level=LogLevel::Debug;
+
+        else if (m_JsonObjects["logLevel"]=="Error")
+            level=LogLevel::Error;
+
+        else if (m_JsonObjects["logLevel"]=="Info")
+            level=LogLevel::Info;
+
+        else level=LogLevel::Warn;
+    }
+    return level;
 }

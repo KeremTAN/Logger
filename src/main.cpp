@@ -13,20 +13,15 @@ int main(int argc, char** argv){
   JsonParser json("/configs/config.json");
   json.parse();
 
-  int maxLogFiles = stoi(json.items()["maxLogFiles"]);
+  int maxLogFiles = json.getMaxLogFiles();
   LogFrequency logFrequency = json.getLogFrequency();
-  std::string logLevel = json.items()["logLevel"];
+  LogLevel logLevel = json.getLogLevel();
  
   
-  Logger logger(maxLogFiles, logFrequency, 1); 
+  Logger logger(maxLogFiles, logFrequency, logLevel, 1); 
   while(true){
-    logger.Warn("This is a Warn");
+    logger.log("This is a Warn");
   }
-/*
-  logger.Error("This is an Error");
-  logger.Info("This is an Info");
-  logger.Debug("This is an Debug");
-  */
 
   std::cin.get();
 }
