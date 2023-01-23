@@ -20,6 +20,7 @@ set(PROJECT_HEADERS
     ${PROJECT_INCLUDE_DIR}/Logger.hpp
     ${PROJECT_INCLUDE_DIR}/JsonParser.hpp
     ${PROJECT_INCLUDE_DIR}/CurrentPath.hpp
+    ${PROJECT_INCLUDE_DIR}/LogFrequency.hpp
     ${PROJECT_INCLUDE_DIR}/Colors.h
     ${PROJECT_INCLUDE_DIR}/json.hpp
     ${PROJECT_INCLUDE_DIR}/nlohmann/*.hpp)

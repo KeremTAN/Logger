@@ -47,3 +47,21 @@ void JsonParser::parse(){
 std::unordered_map<std::string, std::string>& JsonParser::items(){
     return m_JsonObjects;
 }
+
+LogFrequency JsonParser::getLogFrequency(){
+  LogFrequency frequency;
+  if(m_JsonObjects.size()!=0){
+    if(m_JsonObjects["logFrequency"]=="Second")
+        frequency=LogFrequency::Second;
+
+    else if (m_JsonObjects["logFrequency"]=="Minute")
+        frequency=LogFrequency::Minute;
+
+    else if (m_JsonObjects["logFrequency"]=="Hourly")
+        frequency=LogFrequency::Hourly;
+
+    else frequency=LogFrequency::Daily;
+    }
+
+    return frequency;
+}

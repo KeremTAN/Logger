@@ -1,8 +1,6 @@
 #include "Logger.hpp"
 
-
-
-Logger::Logger(const int& maxFile, const int& frequency, const bool& printConsole)
+Logger::Logger(const int& maxFile, const LogFrequency& frequency, const bool& printConsole)
         :m_maxFile(maxFile), m_frequency(frequency), m_printConsole(printConsole){
                 m_curr=CurrentPath::getInstance();
         }
@@ -41,6 +39,8 @@ int Logger::getCountOfLogs(){
 }
 
 void Logger::log(const char* logType, const char* message){
+        std::this_thread::sleep_for(std::chrono::seconds(20));
+        //auto sleepTime = std::chrono::seconds(20);
         std::string filePath= "logs/"+getUTCDate()+".log"; 
         m_logFile.open(filePath, std::ios::app); 
         // Write the log message to file 

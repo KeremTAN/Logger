@@ -16,6 +16,7 @@
 #include <fstream>
 #include <unordered_map>
 #include "CurrentPath.hpp"
+#include "Logger.hpp"
 
 
 class JsonParser{
@@ -24,6 +25,7 @@ public:
     ~JsonParser();
     void parse();
     std::unordered_map<std::string, std::string>& items();
+    LogFrequency getLogFrequency();
 
 private:
     std::string                                     m_sourceText;

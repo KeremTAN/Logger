@@ -15,17 +15,15 @@
 #include <fstream>
 #include <ctime>
 #include <dirent.h>
+#include <chrono>
+#include<future>
 #include "CurrentPath.hpp"
 #include "Colors.h"
-
-enum class LogType
-{
-    Critical, Debug, Error, Info, Warn, Trace
-};
+#include "LogFrequency.hpp"
 
 class Logger{
 public:
-    Logger(const int& maxFile, const int& frequency, const bool& printConsole = 1);
+    Logger(const int& maxFile, const LogFrequency& frequency = LogFrequency::Daily, const bool& printConsole = 1);
     ~Logger();
 
     template<typename... Args>
@@ -58,11 +56,11 @@ public:
 
 private:
     int             m_maxFile;
-    int             m_frequency;
+    LogFrequency    m_frequency;
     bool            m_printConsole;
     std::ofstream   m_logFile;
     CurrentPath*    m_curr;
-    
+
     std::string getUTCDate();
     int getCountOfLogs();
     void log(const char* logType, const char* message);

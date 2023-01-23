@@ -1,6 +1,5 @@
 {
-    "logFileName":"logs/application.log",
     "maxLogFiles":7,
-    "logFrequency":2,
+    "logFrequency":"Second",
     "logLevel":"debug"
 }
