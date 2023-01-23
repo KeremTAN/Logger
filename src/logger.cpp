@@ -1,4 +1,5 @@
 #include "Logger.hpp"
+#include "Colors.h"
 
 
 Logger::Logger(const std::string& fileName, const int& maxFile, const int& frequency)
@@ -48,7 +49,7 @@ void Logger::log(const std::string& message){
 
         // Close the log file
         m_logFile.close();
-
+        LOG_RED("[Debug] : ", message.c_str());
         // Check if the number of log files exceeds the max limit
         // and delete the oldest log file
        // std::cout <<m_logType<<'\n';

@@ -6,6 +6,7 @@
 #include "JsonParser.hpp"
 #include "nlohmann/json.hpp"
 
+
 using json = nlohmann::json;
 
 int main(int argc, char** argv){
@@ -19,6 +20,6 @@ int main(int argc, char** argv){
   
   Logger logger(logFileName, maxLogFiles, logFrequency); 
   logger.log("hiii");
-
+  
   std::cin.get();
 }
