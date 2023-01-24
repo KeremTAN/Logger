@@ -1,7 +1,7 @@
 #include "Logger.hpp"
 
-Logger::Logger(const int& maxFile, const LogFrequency& frequency, const LogLevel& level, const bool& printConsole)
-        :m_maxFile(maxFile), m_frequency(frequency), m_level(level), m_printConsole(printConsole){
+Logger::Logger(const int& maxFile, const LogFrequency& frequency, const LogLevel& level, const bool& isPrintable)
+        :m_maxFile(maxFile), m_frequency(frequency), m_level(level), m_isPrintable(isPrintable){
                 m_curr=CurrentPath::getInstance();
         }
 
@@ -71,6 +71,21 @@ void Logger::log(const char* logType, const char* message){
         if (m_maxFile < getCountOfLogs()) {
                 
         }
+}
+
+/* Setter Methods */
+
+void Logger::setMaxFile(const int& maxFile){
+        m_maxFile=maxFile;
+}
+void Logger::setFrequency(const LogFrequency& frequency){
+        m_frequency=frequency;
+}
+void Logger::setLevel(const LogLevel& level){
+        m_level=level;
+}
+void Logger::setIsPrintable(const bool& isPrintable){
+        m_isPrintable=isPrintable;
 }
 
 

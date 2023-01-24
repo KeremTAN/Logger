@@ -16,7 +16,7 @@
 #include <ctime>
 #include <dirent.h>
 #include <chrono>
-#include<future>
+#include <future>
 #include "CurrentPath.hpp"
 #include "Colors.h"
 #include "LogFrequency.hpp"
@@ -29,52 +29,59 @@ public:
     Logger( const int& maxFile,
             const LogFrequency& frequency = LogFrequency::Daily,
             const LogLevel& level = LogLevel::Warn,
-            const bool& printConsole = 1);
+            const bool& printConsole = true);
     ~Logger();
 
     template<typename... Args>
     void log(const char* message, Args... args){  
-        while(1){
+        while(true){
             sleepLog();
             switch (m_level)
             {
                 case LogLevel::Debug:
                     log("Debug", message);
-                    if(m_printConsole)
+                    if(m_isPrintable)
                         LOG_CYAN("[Debug]", message);
                 break;
 
                 case LogLevel::Error:
                     log("Error", message);
-                    if(m_printConsole)
+                    if(m_isPrintable)
                         LOG_RED("[Error]", message);
                 break;
 
                 case LogLevel::Info:
                     log("Info", message);
-                    if(m_printConsole)
+                    if(m_isPrintable)
                         LOG_GREEN("[Info]", message);
                 break;
         
                 default: 
                     log("Warn", message);
-                    if(m_printConsole)
+                    if(m_isPrintable)
                        LOG_YELLOW("[Warn]", message);
                 break;
             }
         }
     }
+
+    /* Setter Methods */
+    void            setMaxFile(const int& maxFile);
+    void            setFrequency(const LogFrequency& frequency);
+    void            setLevel(const LogLevel& level);
+    void            setIsPrintable(const bool& printConsole);
+
 private:
     int             m_maxFile;
     LogFrequency    m_frequency;
     LogLevel        m_level;
-    bool            m_printConsole;
+    bool            m_isPrintable;
     std::ofstream   m_logFile;
     CurrentPath*    m_curr;
 
-    std::string getUTCDate();
-    int getCountOfLogs();
-    void sleepLog();
-    void log(const char* logType, const char* message);
+    std::string     getUTCDate();
+    int             getCountOfLogs();
+    void            sleepLog();
+    void            log(const char* logType, const char* message);
 };
 #endif

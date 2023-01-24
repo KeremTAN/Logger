@@ -10,6 +10,7 @@
 class CurrentPath{
 public:
     static CurrentPath* getInstance();
+    ~CurrentPath();
     std::string& getPath();
 private:
     CurrentPath();
