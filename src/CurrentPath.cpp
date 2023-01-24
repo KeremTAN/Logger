@@ -14,7 +14,7 @@ CurrentPath* CurrentPath::getInstance(){
     return m_Instance;
 }
 
-std::string& CurrentPath:: getPath(){
+std::string& CurrentPath::getPath(){
     char buffer[PATH_MAX];
     if (getcwd(buffer, sizeof(buffer)) == NULL) {
         perror("getcwd() error");

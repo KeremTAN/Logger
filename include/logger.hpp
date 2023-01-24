@@ -17,6 +17,8 @@
 #include <dirent.h>
 #include <chrono>
 #include <future>
+#include <queue>
+#include <cstdio>
 #include "CurrentPath.hpp"
 #include "Colors.h"
 #include "LogFrequency.hpp"
@@ -72,16 +74,18 @@ public:
     void            setIsPrintable(const bool& printConsole);
 
 private:
-    int             m_maxFile;
-    LogFrequency    m_frequency;
-    LogLevel        m_level;
-    bool            m_isPrintable;
-    std::ofstream   m_logFile;
-    CurrentPath*    m_curr;
+    int                         m_maxFile;
+    int                         m_countFiles;
+    LogFrequency                m_frequency;
+    LogLevel                    m_level;
+    bool                        m_isPrintable;
+    std::ofstream               m_logFile;
+    CurrentPath*                m_curr;
+    std::queue<std::string>    m_files;
 
     std::string     getUTCDate();
-    int             getCountOfLogs();
     void            sleepLog();
     void            log(const char* logType, const char* message);
+    int             getCountOfLogs();
 };
 #endif

@@ -1,5 +1,5 @@
 {
-    "maxLogFiles":7,
+    "maxLogFiles":1,
     "logFrequency":"Second",
     "logLevel":"debug"
 }

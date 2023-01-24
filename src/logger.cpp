@@ -3,6 +3,7 @@
 Logger::Logger(const int& maxFile, const LogFrequency& frequency, const LogLevel& level, const bool& isPrintable)
         :m_maxFile(maxFile), m_frequency(frequency), m_level(level), m_isPrintable(isPrintable){
                 m_curr=CurrentPath::getInstance();
+                m_countFiles=0;
         }
 
 Logger::~Logger() {}
@@ -15,27 +16,6 @@ std::string Logger::getUTCDate(){
         char buf[80];
         strftime(buf, sizeof(buf), "%Y-%m-%d_%X", &tstruct);
         return buf;
-}
-
-int Logger::getCountOfLogs(){
-        DIR *dir;
-        struct dirent *ent;
-        int file_count = 0;
-        std::string path = m_curr->getPath()+"/logs/";
-        if ((dir = opendir (path.c_str())) != NULL) {
-                while ((ent = readdir (dir)) != NULL) {
-                        if (ent->d_type == DT_REG) {
-                                file_count++;
-                        }
-                }
-                closedir (dir);
-        } 
-        else {
-                perror ("File could not open !");
-                return EXIT_FAILURE;
-        }
- 
-    return file_count;
 }
 
 void Logger::sleepLog(){
@@ -64,12 +44,15 @@ void Logger::log(const char* logType, const char* message){
         m_logFile.open(filePath, std::ios::app); 
 
         m_logFile << "[" << getUTCDate() << "] " << message << std::endl;
-
+        m_countFiles+=1;
 
         m_logFile.close();
+        m_files.push(filePath);
 
-        if (m_maxFile < getCountOfLogs()) {
-                
+        if (m_maxFile < m_countFiles) {
+                remove(m_files.front().c_str());
+                m_countFiles-=1;
+                m_files.pop();
         }
 }
 
@@ -88,4 +71,29 @@ void Logger::setIsPrintable(const bool& isPrintable){
         m_isPrintable=isPrintable;
 }
 
-
+/**
+ * @brief Unused Method
+ * It counts files on log directory
+ * @return int 
+ */
+int Logger::getCountOfLogs(){
+        DIR *dir;
+        struct dirent *ent;
+        int file_count = 0;
+        std::string path = m_curr->getPath()+"/logs/";
+        if ((dir = opendir (path.c_str())) != NULL) {
+                while ((ent = readdir (dir)) != NULL) {
+                        if (ent->d_type == DT_REG) {
+                                file_count++;
+                                m_files.push(ent->d_name);
+                        }
+                }
+                closedir (dir);
+        } 
+        else {
+                perror ("File could not open !");
+                return EXIT_FAILURE;
+        }
+ 
+    return file_count;
+}
