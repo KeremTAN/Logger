@@ -22,6 +22,8 @@
 #include "LogFrequency.hpp"
 #include "LogLevel.hpp"
 
+#define sleep(X) std::this_thread::sleep_for(X);
+
 class Logger{
 public:
     Logger( const int& maxFile,
@@ -31,32 +33,35 @@ public:
     ~Logger();
 
     template<typename... Args>
-    void log(const char* message, Args... args){
-        switch (m_level)
-        {
-        case LogLevel::Debug:
-            log("Debug", message);
-            if(m_printConsole)
-                LOG_CYAN("[Debug]", message);
-        break;
+    void log(const char* message, Args... args){  
+        while(1){
+            sleepLog();
+            switch (m_level)
+            {
+                case LogLevel::Debug:
+                    log("Debug", message);
+                    if(m_printConsole)
+                        LOG_CYAN("[Debug]", message);
+                break;
 
-        case LogLevel::Error:
-            log("Error", message);
-            if(m_printConsole)
-                LOG_RED("[Error]", message);
-        break;
+                case LogLevel::Error:
+                    log("Error", message);
+                    if(m_printConsole)
+                        LOG_RED("[Error]", message);
+                break;
 
-        case LogLevel::Info:
-            log("Info", message);
-            if(m_printConsole)
-                LOG_GREEN("[Info]", message);
-        break;
+                case LogLevel::Info:
+                    log("Info", message);
+                    if(m_printConsole)
+                        LOG_GREEN("[Info]", message);
+                break;
         
-        default: 
-            log("Warn", message);
-            if(m_printConsole)
-                LOG_YELLOW("[Warn]", message);
-            break;
+                default: 
+                    log("Warn", message);
+                    if(m_printConsole)
+                       LOG_YELLOW("[Warn]", message);
+                break;
+            }
         }
     }
 private:
@@ -69,6 +74,7 @@ private:
 
     std::string getUTCDate();
     int getCountOfLogs();
+    void sleepLog();
     void log(const char* logType, const char* message);
 };
 #endif

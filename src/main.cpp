@@ -19,9 +19,9 @@ int main(int argc, char** argv){
  
   
   Logger logger(maxLogFiles, logFrequency, logLevel, 1); 
-  while(true){
-    logger.log("This is a Warn");
-  }
+
+  logger.log("This is a log about logger");
+
 
   std::cin.get();
 }

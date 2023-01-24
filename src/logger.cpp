@@ -31,29 +31,45 @@ int Logger::getCountOfLogs(){
                 closedir (dir);
         } 
         else {
-                perror ("");
+                perror ("File could not open !");
                 return EXIT_FAILURE;
         }
  
     return file_count;
 }
 
+void Logger::sleepLog(){
+       switch (m_frequency) {
+        case LogFrequency::Second:
+                sleep(std::chrono::seconds(1));
+        break;
+
+        case LogFrequency::Minute:
+                sleep(std::chrono::minutes(1));
+        break;
+
+        case LogFrequency::Hourly:
+                sleep(std::chrono::hours(1));
+        break;
+
+        default:
+                sleep(std::chrono::hours(24));
+        break;
+       }
+}
+
 void Logger::log(const char* logType, const char* message){
-        std::this_thread::sleep_for(std::chrono::seconds(20));
-        //auto sleepTime = std::chrono::seconds(20);
+
         std::string filePath= "logs/"+getUTCDate()+".log"; 
         m_logFile.open(filePath, std::ios::app); 
-        // Write the log message to file 
+
         m_logFile << "[" << getUTCDate() << "] " << message << std::endl;
 
-        // Close the log file
+
         m_logFile.close();
-       
-        // Check if the number of log files exceeds the max limit
-        // and delete the oldest log file
-       // std::cout <<m_logType<<'\n';
-        if (m_maxFile > 0) {
-      
+
+        if (m_maxFile < getCountOfLogs()) {
+                
         }
 }
 
