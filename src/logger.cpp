@@ -94,6 +94,5 @@ int Logger::getCountOfLogs(){
                 perror ("File could not open !");
                 return EXIT_FAILURE;
         }
- 
     return file_count;
 }

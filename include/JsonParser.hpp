@@ -8,7 +8,6 @@
  * @copyright Copyright (c) 2023
  * 
  */
-
 #ifndef JSONPARSER_HPP
 #define JSONPARSER_HPP
 #include <iostream>
@@ -18,7 +17,6 @@
 #include "CurrentPath.hpp"
 #include "LogFrequency.hpp"
 #include "LogLevel.hpp"
-
 
 class JsonParser{
 public:

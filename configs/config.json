@@ -1,5 +1,5 @@
 {
-    "maxLogFiles":1,
-    "logFrequency":"Second",
-    "logLevel":"debug"
+    "maxLogFiles":  3,
+    "logFrequency": "Second",
+    "logLevel":     "warn"
 }

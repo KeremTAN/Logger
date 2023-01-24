@@ -8,7 +8,6 @@
  * @copyright Copyright (c) 2023
  * 
  */
-
 #ifndef LOGGER_HPP
 #define LOGGER_HPP
 #include <iostream>

@@ -1,11 +1,9 @@
-
 #pragma once
 #ifndef CURRENTPATH_HPP
 #define CURRENTPATH_HPP
 #include<iostream>
 #include<string>
 #include <unistd.h>
-
 
 class CurrentPath{
 public:
