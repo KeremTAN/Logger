@@ -43,7 +43,7 @@ void Logger::log(const char* logType, const char* message){
         std::string filePath= "logs/"+getUTCDate()+".log"; 
         m_logFile.open(filePath, std::ios::app); 
 
-        m_logFile << "[" << getUTCDate() << "] " << message << std::endl;
+        m_logFile << getUTCDate()<< " [" <<Level::convert(m_level) << "] " << message << std::endl;
         m_countFiles+=1;
 
         m_logFile.close();

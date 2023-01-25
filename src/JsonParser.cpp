@@ -2,7 +2,7 @@
 #include <unistd.h>
 
 #define passCondition   m_sourceText[i]=='{' || m_sourceText[i]=='\"' || m_sourceText[i]==9 || m_sourceText[i]==32 || m_sourceText[i]==':' || m_sourceText[i]==','
-#define inValidConditon m_sourceText[i]!='\"' && m_sourceText[i]!='}' && m_sourceText[i] !=',' && m_sourceText[i] !=EOF
+#define validConditon m_sourceText[i]!='\"' && m_sourceText[i]!='}' && m_sourceText[i] !=',' && m_sourceText[i] !=EOF
 
 JsonParser::JsonParser(const std::string& jsonFileName){
     m_curr= CurrentPath::getInstance();
@@ -27,13 +27,13 @@ void JsonParser::parse(){
             continue;
         }
         if(isKey){
-            while(inValidConditon){
+            while(validConditon){
                 keyToken+=m_sourceText[i++];
             }
             isKey = 0; 
         }
         else{
-            while(inValidConditon){
+            while(validConditon){
                 valueToken+= std::tolower(m_sourceText[i++]);
             }
             m_JsonObjects.insert({keyToken, valueToken});
@@ -55,36 +55,13 @@ int JsonParser::getMaxLogFiles(){
 }
 
 LogFrequency JsonParser::getLogFrequency(){
-  LogFrequency frequency;
-  if(m_JsonObjects.size()!=0){
-        if(m_JsonObjects["logFrequency"]=="second")
-            frequency=LogFrequency::Second;
-
-        else if (m_JsonObjects["logFrequency"]=="minute")
-            frequency=LogFrequency::Minute;
-
-        else if (m_JsonObjects["logFrequency"]=="hourly")
-            frequency=LogFrequency::Hourly;
-
-        else frequency=LogFrequency::Daily;
-    }
-
-    return frequency;
+    if(m_JsonObjects.size()!=0)
+        return Frequency::convert(m_JsonObjects["logFrequency"]);
+    return LogFrequency::Daily;
 }
 
 LogLevel JsonParser::getLogLevel(){
-    LogLevel level;
-    if(m_JsonObjects.size()!=0){
-        if(m_JsonObjects["logLevel"]=="debug")
-            level=LogLevel::Debug;
-
-        else if (m_JsonObjects["logLevel"]=="Error")
-            level=LogLevel::Error;
-
-        else if (m_JsonObjects["logLevel"]=="Info")
-            level=LogLevel::Info;
-
-        else level=LogLevel::Warn;
-    }
-    return level;
+    if(m_JsonObjects.size()!=0)
+        return Level::convert(m_JsonObjects["logLevel"]);
+    return LogLevel::Undefined;
 }
