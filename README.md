@@ -2,6 +2,7 @@
 * [Summary Information](#si)
 * [config.json](#config)
 * [JsonParser & Logger](#jl)
+    * [Code example using JsonParser and Logger objects;](#exm)
 * [Example Image of Terminal](#img)
 
 <a name="si"></a>
@@ -40,8 +41,12 @@ However, if you use nlohmann's library, you will need to convert the data that y
     LogLevel        logLevel = Level::convert(j["logLevel"]);
 ```
 
+After parsing the data in the config.json file, you need to create a Logger object. While creating the Logger class, its constructor expects 4 parameters. These parameters are respectively maximum number of files, log file creation frequency, log level and a bool value for pressing the terminal while saving the logs. If these parameters are not entered while creating the Logger object, these parameters will work with their default values.
 
-<!--
+After the logger object is created, you just need to call the log method.
+
+<a name="exm"></a>
+Code example using JsonParser and Logger objects;
 ```c++
 int main(int argc, char** argv){
   JsonParser json("/configs/config.json");
@@ -56,4 +61,6 @@ int main(int argc, char** argv){
   std::cin.get();
 }
 ```
- ![UML](https://github.com/KeremTAN/Logger/blob/main/img/terminal.png) -->
+<a name="img"></a>
+An example image of the terminal outputs you will get when you use this log application; </br>
+ ![UML](https://github.com/KeremTAN/Logger/blob/main/img/terminal.png)
