@@ -27,9 +27,9 @@
 
 class Logger{
 public:
-    Logger( const int& maxFile,
+    Logger( const int& maxFile=1,
             const LogFrequency& frequency = LogFrequency::Daily,
-            const LogLevel& level = LogLevel::Warn,
+            const LogLevel& level = LogLevel::Undefined,
             const bool& printConsole = true);
     ~Logger();
 
@@ -80,7 +80,7 @@ private:
     bool                        m_isPrintable;
     std::ofstream               m_logFile;
     CurrentPath*                m_curr;
-    std::queue<std::string>    m_files;
+    std::queue<std::string>     m_files;
 
     std::string     getUTCDate();
     void            sleepLog();

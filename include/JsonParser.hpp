@@ -21,6 +21,7 @@
 class JsonParser{
 public:
     JsonParser(const std::string& jsonFileName);
+    JsonParser();
     ~JsonParser();
     int             getMaxLogFiles();
     LogFrequency    getLogFrequency();

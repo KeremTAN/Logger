@@ -2,11 +2,8 @@
 #include <fstream>
 #include "Logger.hpp"
 #include "JsonParser.hpp"
-/**
- * If you need professional Json parser
- * You can use nlohmann's json lib
- * https://github.com/nlohmann/json
- */
+
+// nlohmann's json lib
 #include "nlohmann/json.hpp"
 #include "json.hpp"
 
