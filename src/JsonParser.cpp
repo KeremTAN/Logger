@@ -12,14 +12,35 @@ JsonParser::JsonParser(const std::string& jsonFileName){
         m_sourceText+=tmp;
     }
     configFile.close();
+    parse();
 }
 JsonParser::~JsonParser(){
     m_sourceText.clear();
     m_JsonObjects.clear();
 }
 
+int JsonParser::getMaxLogFiles(){
+    if(m_JsonObjects.size()!=0)
+        return std::stoi(m_JsonObjects["maxLogFiles"]);
+    return 1;
+}
+
+LogFrequency JsonParser::getLogFrequency(){
+    if(m_JsonObjects.size()!=0)
+        return Frequency::convert(m_JsonObjects["logFrequency"]);
+    return LogFrequency::Daily;
+}
+
+LogLevel JsonParser::getLogLevel(){
+    if(m_JsonObjects.size()!=0)
+        return Level::convert(m_JsonObjects["logLevel"]);
+    return LogLevel::Undefined;
+}
+
 void JsonParser::parse(){
-    std::string keyToken, valueToken;
+    std::string keyToken="", valueToken="";
+    if(m_JsonObjects.size()!=0)
+        m_JsonObjects.clear();
    
     bool isKey = 1;
     for(int i=0; i<m_sourceText.size(); i++){
@@ -46,22 +67,4 @@ void JsonParser::parse(){
 
 std::unordered_map<std::string, std::string>& JsonParser::items(){
     return m_JsonObjects;
-}
-
-int JsonParser::getMaxLogFiles(){
-    if(m_JsonObjects.size()!=0)
-        return std::stoi(m_JsonObjects["maxLogFiles"]);
-    return 1;
-}
-
-LogFrequency JsonParser::getLogFrequency(){
-    if(m_JsonObjects.size()!=0)
-        return Frequency::convert(m_JsonObjects["logFrequency"]);
-    return LogFrequency::Daily;
-}
-
-LogLevel JsonParser::getLogLevel(){
-    if(m_JsonObjects.size()!=0)
-        return Level::convert(m_JsonObjects["logLevel"]);
-    return LogLevel::Undefined;
 }

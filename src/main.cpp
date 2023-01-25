@@ -14,7 +14,6 @@ using json = nlohmann::json;
 
 int main(int argc, char** argv){
   JsonParser json("/configs/config.json");
-  json.parse();
 
   int maxLogFiles = json.getMaxLogFiles();
   LogFrequency logFrequency = json.getLogFrequency();

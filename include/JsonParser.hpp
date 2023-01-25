@@ -22,7 +22,6 @@ class JsonParser{
 public:
     JsonParser(const std::string& jsonFileName);
     ~JsonParser();
-    void            parse();
     int             getMaxLogFiles();
     LogFrequency    getLogFrequency();
     LogLevel        getLogLevel();
@@ -32,6 +31,8 @@ private:
     std::unordered_map<std::string, std::string>    m_JsonObjects;
     CurrentPath*                                    m_curr;
 
+
+    void                                            parse();
     std::unordered_map<std::string, std::string>&   items();
 };
 #endif
