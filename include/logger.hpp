@@ -56,11 +56,17 @@ public:
                     if(m_isPrintable)
                         LOG_GREEN("[Info]", message);
                 break;
-        
-                default: 
+
+                case LogLevel::Warn:
                     log("Warn", message);
                     if(m_isPrintable)
                        LOG_YELLOW("[Warn]", message);
+                break;
+        
+                default: 
+                    log("Undefined", message);
+                    if(m_isPrintable)
+                       LOG_MAGENTA("[Undefined]", message);
                 break;
             }
         }
