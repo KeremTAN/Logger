@@ -33,45 +33,7 @@ public:
             const bool& printConsole = true);
     ~Logger();
 
-    template<typename... Args>
-    void log(const char* message, Args... args){  
-        while(true){
-            sleepLog();
-            switch (m_level)
-            {
-                case LogLevel::Debug:
-                    log("Debug", message);
-                    if(m_isPrintable)
-                        LOG_CYAN("[Debug]", message);
-                break;
-
-                case LogLevel::Error:
-                    log("Error", message);
-                    if(m_isPrintable)
-                        LOG_RED("[Error]", message);
-                break;
-
-                case LogLevel::Info:
-                    log("Info", message);
-                    if(m_isPrintable)
-                        LOG_GREEN("[Info]", message);
-                break;
-
-                case LogLevel::Warn:
-                    log("Warn", message);
-                    if(m_isPrintable)
-                       LOG_YELLOW("[Warn]", message);
-                break;
-        
-                default: 
-                    log("Undefined", message);
-                    if(m_isPrintable)
-                       LOG_MAGENTA("[Undefined]", message);
-                break;
-            }
-        }
-    }
-
+    void log(const char* messeage);
     /* Setter Methods */
     void            setMaxFile(const int& maxFile);
     void            setFrequency(const LogFrequency& frequency);
@@ -90,7 +52,8 @@ private:
 
     std::string     getUTCDate();
     void            sleepLog();
-    void            log(const char* logType, const char* message);
-    int             getCountOfLogs();
+    void            logging(const char* message);
+    void            saveLog(const char* logType, const char* message);
+    int             getDirOfLogs();
 };
 #endif

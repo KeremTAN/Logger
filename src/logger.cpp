@@ -18,6 +18,13 @@ std::string Logger::getUTCDate(){
         return buf;
 }
 
+void Logger::log(const char* message){
+        void (Logger::*logging)(const char*);
+        logging=&Logger::logging;
+        std::thread t1(logging, this, message);
+        t1.detach();
+}
+
 void Logger::sleepLog(){
        switch (m_frequency) {
         case LogFrequency::Second:
@@ -38,7 +45,44 @@ void Logger::sleepLog(){
        }
 }
 
-void Logger::log(const char* logType, const char* message){
+void  Logger::logging(const char* message){  
+        while(true){
+                sleepLog();
+                switch (m_level){
+                        case LogLevel::Debug:
+                        saveLog("Debug", message);
+                        if(m_isPrintable)
+                                LOG_CYAN("[Debug]", message);
+                        break;
+
+                        case LogLevel::Error:
+                        saveLog("Error", message);
+                        if(m_isPrintable)
+                                LOG_RED("[Error]", message);
+                        break;
+
+                        case LogLevel::Info:
+                        saveLog("Info", message);
+                        if(m_isPrintable)
+                                LOG_GREEN("[Info]", message);
+                        break;
+
+                        case LogLevel::Warn:
+                        saveLog("Warn", message);
+                        if(m_isPrintable)
+                                LOG_YELLOW("[Warn]", message);
+                        break;
+        
+                        default: 
+                        saveLog("Undefined", message);
+                        if(m_isPrintable)
+                                LOG_MAGENTA("[Undefined]", message);
+                        break;
+                }
+        }
+}
+
+void Logger::saveLog(const char* logType, const char* message){
 
         std::string filePath= "logs/"+getUTCDate()+".log"; 
         m_logFile.open(filePath, std::ios::app); 
@@ -76,7 +120,7 @@ void Logger::setIsPrintable(const bool& isPrintable){
  * It counts files on log directory
  * @return int 
  */
-int Logger::getCountOfLogs(){
+int Logger::getDirOfLogs(){
         DIR *dir;
         struct dirent *ent;
         int file_count = 0;
@@ -85,7 +129,7 @@ int Logger::getCountOfLogs(){
                 while ((ent = readdir (dir)) != NULL) {
                         if (ent->d_type == DT_REG) {
                                 file_count++;
-                                m_files.push(ent->d_name);
+                               // m_files.push(ent->d_name);
                         }
                 }
                 closedir (dir);
